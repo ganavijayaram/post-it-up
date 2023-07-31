@@ -1,25 +1,13 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import MovieCreate from './MovieCreate'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+//using the arrow function syntax in JavaScript.
+//Functional components are a fundamental building block in React, and they are used to create reusable UI elements.
+const App = () => {
+    return <div className='container'>
+        <h1>Create Movie</h1>
+        <MovieCreate/>
     </div>
-  );
 }
 
-export default App;
+export default App
