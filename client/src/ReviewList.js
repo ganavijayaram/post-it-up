@@ -16,7 +16,7 @@ const ReviewList  = ({movieId}) => {
     }, [])
    
     const renderedReviews = reviews.map(review => {
-        console.log(`reviewId ${review.id}`)
+        //console.log(`reviewId ${review.id}`)
         return <li key={review.id}>{review.content}</li>
     })
     return <ul>{renderedReviews}</ul>
