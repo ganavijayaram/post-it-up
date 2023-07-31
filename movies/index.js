@@ -4,9 +4,14 @@ const crypto  = require('crypto')
 // To parse the data sent by the user
 const bodyParser = require('body-parser')
 const app =  express()
+//to allow one service which is running on localhost and a port to communicate with localhost and another port
+const cors = require('cors')
 // It is used to parse incoming HTTP request bodies that are in JSON format.
 app.use(bodyParser.json())
+//cors is like a middleware which gives access when someone is trying to communicate with this movie service
+app.use(cors())
 
+//creating an aobject not a array
 const movies = {}
 
 // /movies is the route
@@ -37,6 +42,6 @@ app.post('/movies', (req, res) => {
 })
 
 // sets up the server to listen on port 4000 for incoming HTTP requests.
-app.listen(4000, () => {
-    console.log('Listening on port 4000')
+app.listen(4002, () => {
+    console.log('Listening on port 4002')
 })
