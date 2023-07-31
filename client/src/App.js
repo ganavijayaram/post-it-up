@@ -1,6 +1,7 @@
 import React from 'react'
 import MovieCreate from './MovieCreate'
 import MovieList from './MovieList'
+import ReviewCreate from './ReviewCreate'
 
 //using the arrow function syntax in JavaScript.
 //Functional components are a fundamental building block in React, and they are used to create reusable UI elements.
