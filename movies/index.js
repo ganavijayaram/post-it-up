@@ -6,6 +6,10 @@ const bodyParser = require('body-parser')
 const app =  express()
 //to allow one service which is running on localhost and a port to communicate with localhost and another port
 const cors = require('cors')
+//using axios
+const axios = require('axios')
+
+
 // It is used to parse incoming HTTP request bodies that are in JSON format.
 app.use(bodyParser.json())
 //cors is like a middleware which gives access when someone is trying to communicate with this movie service
@@ -23,7 +27,7 @@ app.get('/movies', (req, res) => {
     
 })
 
-app.post('/movies', (req, res) => {
+app.post('/movies', async (req, res) => {
     //Generate 4 bytes of random number and convert it into hex string
     const id = crypto.randomBytes(4).toString('hex')
     // Destructuring assignment is a feature introduced in ECMAScript 2015 (ES6) 
@@ -35,7 +39,15 @@ app.post('/movies', (req, res) => {
         id, 
         title
     }
-    
+    //the events can be of any data type like strings, numbers but we chose JSON
+    console.log("POSTING")
+    await axios.post('http://localhost:4005/events', {
+        type: 'MovieCreated',
+        data: {
+            id, title
+        }
+    })
+
     // sending the post which was successfully created
     res.status(201).send(movies[id])
 

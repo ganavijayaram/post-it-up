@@ -2,6 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const crypto = require('crypto')
 const cors = require('cors')
+const axios = require('axios')
 
 
 app = express()
@@ -17,7 +18,7 @@ app.get('/movies/:id/reviews', (req, res) => {
 
 })
 
-app.post('/movies/:id/reviews', (req, res) => {
+app.post('/movies/:id/reviews', async (req, res) => {
 
     const reviewId = crypto.randomBytes(4).toString('hex')
     // in the req.body if there is field called content, that value is assigned to the content variable
@@ -28,9 +29,21 @@ app.post('/movies/:id/reviews', (req, res) => {
     const reviews = reviewsByMovieId[movieId] || []
     reviews.push({id: reviewId, content})
     reviewsByMovieId[movieId] = reviews
-    res.status(201).send(reviewsByMovieId[movieId])
+    //send it to event bus
+
+    await axios.post('http://localhost:4005/events', {
+        type: 'ReviewCreated',
+        data: {
+            id: reviewId,
+            content,
+            movieId
+        }
+    })
+    res.status(201).send(reviewsByMovieId)
 
 })
+
+
 
 app.listen(4001, () => {
     console.log("Listening to Port 4001")
