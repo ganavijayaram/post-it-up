@@ -1,6 +1,7 @@
 import React, {useState, useEffect } from "react";
 import axios from 'axios'
 import ReviewCreate from "./ReviewCreate";
+import ReviewList from "./ReviewList";
 
 const MovieList = () => {
     //setting initial value as an object and not [] because in the movie's index, moveis is defined as an object
@@ -22,6 +23,7 @@ const MovieList = () => {
         return <div className="card" style={{width: '30%', marginBottom: '20px'}} key = {movie.id}>
             <div className="card-body">
                 <h3>{movie.title}</h3>
+                <ReviewList movieId={movie.id}/>
                 <ReviewCreate movieId={movie.id} />
             </div>
         </div>
