@@ -43,7 +43,11 @@ app.post('/movies/:id/reviews', async (req, res) => {
 
 })
 
-
+ //Handling the events received from the event bus
+ app.post('/events', (req, res) => {
+    console.log(`Event received from the event bus Type: ${req.body.type}`)
+    res.send({})
+})
 
 app.listen(4001, () => {
     console.log("Listening to Port 4001")

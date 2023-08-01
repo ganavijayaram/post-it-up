@@ -39,19 +39,25 @@ app.post('/movies', async (req, res) => {
         id, 
         title
     }
-    //the events can be of any data type like strings, numbers but we chose JSON
-    console.log("POSTING")
-    await axios.post('http://localhost:4005/events', {
-        type: 'MovieCreated',
-        data: {
-            id, title
-        }
-    })
+    //Sending the event to event bus when post request is created
+    await axios.post("http://localhost:4005/events", {
+    type: "MovieCreated",
+    data: {
+      id,
+      title,
+    },
+  });
 
-    // sending the post which was successfully created
-    res.status(201).send(movies[id])
+  res.status(201).send(movies[id]);
 
 })
+
+//Handling the events received from the event bus
+app.post("/events", (req, res) => {
+    console.log("Received Event", req.body.type);
+  
+    res.send({});
+  });
 
 // sets up the server to listen on port 4000 for incoming HTTP requests.
 app.listen(4002, () => {
