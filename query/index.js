@@ -1,6 +1,7 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
+const axios = require('axios')
 
 const app = express()
 app.use(bodyParser.json())
@@ -36,19 +37,8 @@ movies === {
 */
 
 movies = {}
-app.get('/movies', (req, res) => {
-    console.log(`QUERY GET ${req.body} ${movies}`)
-    res.send(movies)
-})
 
-//Handling the events received from the event bus
-
-
-  app.post("/events", (req, res) => {
-    //if the body has type and data, those corresponding values are stored on LHS
-    console.log("QUERY")
-    const {type, data} = req.body
-
+const handleEvent = (type, data) => {
     if(type == "MovieCreated") {
         console.log("Reeciveved  MovieCreated in query")
         //check this
@@ -83,11 +73,41 @@ app.get('/movies', (req, res) => {
         //you dont have to poush it back to the movie, because we are updating movie in place
 
     }
+}
+
+app.get('/movies', (req, res) => {
+    console.log(`QUERY GET ${req.body} ${movies}`)
+    res.send(movies)
+})
+
+//Handling the events received from the event bus
+
+
+  app.post("/events", (req, res) => {
+    //if the body has type and data, those corresponding values are stored on LHS
+    console.log("QUERY")
+    const {type, data} = req.body
+
+    handleEvent(type, data)
 
     console.log(movies)
     res.send({})
 })
 
-app.listen(4007, () => {
+app.listen(4007, async () => {
     console.log('Listening on port 4007')
+
+    try {
+        const res = await axios.get("http://localhost:4005/events").catch((err) => {
+            console.log(`Error in ${err.message} Query`);
+          });;
+     
+        for (let event of res.data) {
+          console.log("Processing event:", event.type);
+     
+          handleEvent(event.type, event.data);
+        }
+      } catch (error) {
+        console.log(error.message);
+      }
 })

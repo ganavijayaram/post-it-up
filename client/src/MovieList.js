@@ -8,9 +8,20 @@ const MovieList = () => {
     const [movies, setMovies] = useState({})
 
     const fetchMovies = async () => {
-        const res = await axios.get('http://localhost:4007/movies')
-        console.log(`CLIENT ${res.data}`)
-        setMovies(res.data)
+        var res
+        try {
+            res = await axios.get('http://localhost:4007/movies')
+            setMovies(res.data)
+
+        }
+        catch {
+
+        }
+       // const res = await axios.get('http://localhost:4007/movies').catch((err) => {
+            //console.log(`Error in ${err.message} MovieList`);
+         // });
+        //console.log(`CLIENT ${res.data}`)
+        
     }
 
     useEffect(() => {

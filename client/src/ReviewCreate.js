@@ -10,7 +10,9 @@ const ReviewCreate = ({movieId}) => {
         //console.log(`REVIEW ${content}`)
         await axios.post(`http://localhost:4001/movies/${movieId}/reviews`, {
             content,
-        })
+        }).catch((err) => {
+            console.log(`Error in ${err.message} ReviewCreate`);
+          });
         setContent("")
     }
 

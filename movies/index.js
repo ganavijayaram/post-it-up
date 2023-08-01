@@ -46,7 +46,9 @@ app.post('/movies', async (req, res) => {
       id,
       title,
     },
-  });
+  }).catch((err) => {
+    console.log(`Error in ${err.message} Movies`);
+  });;
 
   res.status(201).send(movies[id]);
 

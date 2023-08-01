@@ -39,7 +39,9 @@ app.post('/movies/:id/reviews', async (req, res) => {
             movieId,
             status: 'pending'
         }
-    })
+    }).catch((err) => {
+        console.log(`Error in ${err.message} Review`);
+      });
     res.status(201).send(reviewsByMovieId)
 
 })
@@ -65,7 +67,9 @@ app.post('/movies/:id/reviews', async (req, res) => {
                 movieId,
                 status
             }
-        })
+        }).catch((err) => {
+            console.log(`Error in ${err.message} Review`);
+          });
     }
 
     res.send({})

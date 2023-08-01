@@ -8,7 +8,9 @@ const Movie = () => {
         event.preventDefault()
         await axios.post('http://localhost:4002/movies', {
             title
-        })
+        }).catch((err) => {
+            console.log(`Error in ${err.message} MovieCreate`);
+          });
         setTitle('')
     }
     //Creating form to create Movie
