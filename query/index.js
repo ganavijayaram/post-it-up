@@ -50,7 +50,7 @@ app.get('/movies', (req, res) => {
     const {type, data} = req.body
 
     if(type == "MovieCreated") {
-
+        console.log("Reeciveved  MovieCreated in query")
         //check this
         const {id, title} = data
 
@@ -59,13 +59,31 @@ app.get('/movies', (req, res) => {
     }
 
     if(type == "ReviewCreated") {
+        console.log("Reeciveved  reviewCreated in query")
 
-        const {id, content, movieId} = data
+        const {id, content, movieId, status} = data
 
         const movie = movies[movieId]
-        movie.reviews.push({id, content})
+        movie.reviews.push({id, content, status})
 
     }
+
+    if(type == "ReviewUpdated") {
+
+        console.log("Reeciveved  reviewupdated in query")
+
+        const {id, content, movieId, status} = data
+
+        const movie = movies[movieId]
+        const review = movie.reviews.find(review => {
+            return review.id === id
+        })
+        review.status = status
+        review.content = content
+        //you dont have to poush it back to the movie, because we are updating movie in place
+
+    }
+
     console.log(movies)
     res.send({})
 })

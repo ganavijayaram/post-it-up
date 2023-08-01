@@ -27,16 +27,17 @@ app.post('/movies/:id/reviews', async (req, res) => {
     const movieId = req.params.id
     // reviewsByMovieId[req.params.id] if unedfined then []
     const reviews = reviewsByMovieId[movieId] || []
-    reviews.push({id: reviewId, content})
+    reviews.push({id: reviewId, content, status:"pending"})
     reviewsByMovieId[movieId] = reviews
     //send it to event bus
-
+    console.log("Sending reviewCreated to event bus in the Review")
     await axios.post('http://localhost:4005/events', {
         type: 'ReviewCreated',
         data: {
             id: reviewId,
             content,
-            movieId
+            movieId,
+            status: 'pending'
         }
     })
     res.status(201).send(reviewsByMovieId)
@@ -44,8 +45,29 @@ app.post('/movies/:id/reviews', async (req, res) => {
 })
 
  //Handling the events received from the event bus
- app.post('/events', (req, res) => {
-    console.log(`Event received from the event bus Type: ${req.body.type}`)
+ app.post('/events', async (req, res) => {
+    console.log(`Review: Event received from the event bus Type: ${req.body.type}`)
+    const {type, data} = req.body
+    if(type === 'ReviewModerated') {
+        console.log("Reeciveved  reviewModerted in query   and sending Review updatedted to event bus in the query")
+        const {movieId, id, status, content} = data
+        const reviews = reviewsByMovieId[movieId]
+        const review = reviews.find(review => {
+            return review.id === id
+        })
+        review.status = status
+
+        await axios.post('http://localhost:4005/events', {
+            type: 'ReviewUpdated',
+            data: {
+                id,
+                content,
+                movieId,
+                status
+            }
+        })
+    }
+
     res.send({})
 })
 
