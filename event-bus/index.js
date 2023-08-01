@@ -10,16 +10,17 @@ app.post("/events", (req, res) => {
 
   //Sending events to Reviews
   axios.post("http://localhost:4001/events", event).catch((err) => {
-    console.log(err.message);
+    console.log(`Error in ${err.message} Reviews`);
   });
   ///Sending events to Movies
   axios.post("http://localhost:4002/events", event).catch((err) => {
-    console.log(err.message);
+    console.log(`Error in ${err.message} Movies`);
   });
   ///Sending events to Query bus
-  axios.post("http://localhost:4003/events", event).catch((err) => {
-    console.log(err.message);
+  axios.post("http://localhost:4007/events", event).catch((err) => {
+    console.log(`Error in ${err.message} Query`);
   });
+  //console.log('ENDDDD')
   res.send({ status: "OK" });
 });
 
