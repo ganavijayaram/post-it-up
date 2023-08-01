@@ -1,19 +1,8 @@
-import React, {useState, useEffect}from "react";
-import axios from 'axios'
+import React from "react";
 
 
-const ReviewList  = ({movieId}) => {
-    const [reviews, setReviews] = useState([])
-
-    const fetchData = async() => {
-        const res = await axios.get(`http://localhost:4001/movies/${movieId}/reviews`)
-        //console.log(` Result ${movieId} ${res.data.content}`)
-        setReviews(res.data)
-    }
-
-    useEffect(() => {
-        fetchData();
-    }, [])
+const ReviewList  = ({reviews}) => {
+    
    
     const renderedReviews = reviews.map(review => {
         //console.log(`reviewId ${review.id}`)

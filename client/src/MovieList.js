@@ -8,7 +8,8 @@ const MovieList = () => {
     const [movies, setMovies] = useState({})
 
     const fetchMovies = async () => {
-        const res = await axios.get('http://localhost:4002/movies')
+        const res = await axios.get('http://localhost:4007/movies')
+        console.log(`CLIENT ${res.data}`)
         setMovies(res.data)
     }
 
@@ -23,7 +24,7 @@ const MovieList = () => {
         return <div className="card" style={{width: '30%', marginBottom: '20px'}} key = {movie.id}>
             <div className="card-body">
                 <h3>{movie.title}</h3>
-                <ReviewList movieId={movie.id}/>
+                <ReviewList reviews={movie.reviews}/>
                 <ReviewCreate movieId={movie.id} />
             </div>
         </div>

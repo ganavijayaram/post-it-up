@@ -36,7 +36,8 @@ movies === {
 */
 
 movies = {}
-app.get('/posts', (req, res) => {
+app.get('/movies', (req, res) => {
+    console.log(`QUERY GET ${req.body} ${movies}`)
     res.send(movies)
 })
 
