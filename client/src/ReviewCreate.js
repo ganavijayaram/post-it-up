@@ -8,7 +8,7 @@ const ReviewCreate = ({movieId}) => {
     const onSubmit = async(event) => {
         event.preventDefault()
         //console.log(`REVIEW ${content}`)
-        await axios.post(`http://localhost:4001/movies/${movieId}/reviews`, {
+        await axios.post(`http://movies.com/movies/${movieId}/reviews`, {
             content,
         }).catch((err) => {
             console.log(`Error in ${err.message} ReviewCreate`);

@@ -6,7 +6,7 @@ const Movie = () => {
 
     const onSubmit = async (event) => {
         event.preventDefault()
-        await axios.post('http://localhost:4002/movies', {
+        await axios.post('http://movies.com/movies/create', {
             title
         }).catch((err) => {
             console.log(`Error in ${err.message} MovieCreate`);

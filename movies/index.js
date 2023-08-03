@@ -27,7 +27,7 @@ app.get('/movies', (req, res) => {
     
 })
 
-app.post('/movies', async (req, res) => {
+app.post('/movies/create', async (req, res) => {
     //Generate 4 bytes of random number and convert it into hex string
     const id = crypto.randomBytes(4).toString('hex')
     // Destructuring assignment is a feature introduced in ECMAScript 2015 (ES6) 

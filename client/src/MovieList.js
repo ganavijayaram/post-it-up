@@ -10,7 +10,7 @@ const MovieList = () => {
     const fetchMovies = async () => {
         var res
         try {
-            res = await axios.get('http://localhost:4007/movies')
+            res = await axios.get('http://movies.com/movies')
             setMovies(res.data)
 
         }

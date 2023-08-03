@@ -1,0 +1,63 @@
+apiVersion: skaffold/v4beta3
+kind: Config
+manifests:
+  rawYaml:
+    #to tell scaffold to watch all the different yaml files
+    # no need to use apply
+    # no need to remove object manually not files
+    - ./infra/k8s/*
+build:
+  local:
+  #to not push to docker
+    push: false
+  artifacts:
+    - image: ganavijayaram/client
+      context: client
+      sync:
+        manual:
+        #any canges made to js files directly throw into pods
+        #else rebuild
+          - src: src/**/*.js
+            dest: .
+      docker:
+        dockerfile: Dockerfile
+    - image: ganavijayaram/reviews
+      context: reviews
+      sync:
+        manual:
+          - src: "*.js"
+            dest: .
+      docker:
+        dockerfile: Dockerfile
+    - image: ganavijayaram/event-bus
+      context: event-bus
+      sync:
+        manual:
+          - src: "*.js"
+            dest: .
+      docker:
+        dockerfile: Dockerfile
+    - image: ganavijayaram/moderation
+      context: moderation
+      sync:
+        manual:
+          - src: "*.js"
+            dest: .
+      docker:
+        dockerfile: Dockerfile
+    - image: ganavijayaram/movies
+      context: movies
+      sync:
+        manual:
+          - src: "*.js"
+            dest: .
+      docker:
+        dockerfile: Dockerfile
+    - image: ganavijayaram/query
+      context: query
+      sync:
+        manual:
+          - src: "*.js"
+            dest: .
+      docker:
+        dockerfile: Dockerfile
