@@ -16,19 +16,19 @@ app.post("/events", (req, res) => {
 
   //Sending events to Reviews
   axios.post("http://reviews-srv:4001/events", event).catch((err) => {
-    console.log(`Error in ${err.message} Reviews`);
+    console.log(`Error in ${err.message} Reviews - Eventbus`);
   });
   ///Sending events to Movies
   axios.post("http://movies-clusterip-srv:4002/events", event).catch((err) => {
-    console.log(`Error in ${err.message} ${event.body} Movies`);
+    console.log(`Error in ${err.message} ${event.body} Movies- Eventbus`);
   });
   ///Sending events to Query
   axios.post("http://query-srv:4007/events", event).catch((err) => {
-    console.log(`Error in ${err.message} Query`);
+    console.log(`Error in ${err.message} Query- Eventbus`);
   });
   ///Sending events to Moderation bus
   axios.post("http://moderation-srv:4009/events", event).catch((err) => {
-    console.log(`Error in ${err.message} Moderation`);
+    console.log(`Error in ${err.message} Moderation- Eventbus`);
   });
   //console.log('ENDDDD')
   res.send({ status: "OK" });
