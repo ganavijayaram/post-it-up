@@ -14,7 +14,7 @@ app.post('/events', async (req, res) => {
     if(type === "ReviewCreated") { 
         console.log("Reeciveved  reviewCreated  in moderation and sending Review moderated to event bus in the moderation")
         const status = data.content.includes('bad') ? 'rejected' : 'approved'
-        await axios.post('http://localhost:4005/events', {
+        await axios.post('http://event-bus-srv:4005/events', {
             type: 'ReviewModerated', 
             data: {
                 id: data.id,

@@ -31,7 +31,7 @@ app.post('/movies/:id/reviews', async (req, res) => {
     reviewsByMovieId[movieId] = reviews
     //send it to event bus
     console.log("Sending reviewCreated to event bus in the Review")
-    await axios.post('http://localhost:4005/events', {
+    await axios.post('http://event-bus-srv:4005/events', {
         type: 'ReviewCreated',
         data: {
             id: reviewId,
@@ -59,7 +59,7 @@ app.post('/movies/:id/reviews', async (req, res) => {
         })
         review.status = status
 
-        await axios.post('http://localhost:4005/events', {
+        await axios.post('http://event-bus-srv:4005/events', {
             type: 'ReviewUpdated',
             data: {
                 id,

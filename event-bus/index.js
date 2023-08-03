@@ -15,19 +15,19 @@ app.post("/events", (req, res) => {
   console.log(`Sending ${req.body.type} to all services in the eventbus`)
 
   //Sending events to Reviews
-  axios.post("http://localhost:4001/events", event).catch((err) => {
+  axios.post("http://reviews-srv:4001/events", event).catch((err) => {
     console.log(`Error in ${err.message} Reviews`);
   });
   ///Sending events to Movies
-  axios.post("http://localhost:4002/events", event).catch((err) => {
-    console.log(`Error in ${err.message} Movies`);
+  axios.post("http://movies-clusterip-srv:4002/events", event).catch((err) => {
+    console.log(`Error in ${err.message} ${event.body} Movies`);
   });
   ///Sending events to Query
-  axios.post("http://localhost:4007/events", event).catch((err) => {
+  axios.post("http://query-srv:4007/events", event).catch((err) => {
     console.log(`Error in ${err.message} Query`);
   });
   ///Sending events to Moderation bus
-  axios.post("http://localhost:4009/events", event).catch((err) => {
+  axios.post("http://moderation-srv:4009/events", event).catch((err) => {
     console.log(`Error in ${err.message} Moderation`);
   });
   //console.log('ENDDDD')

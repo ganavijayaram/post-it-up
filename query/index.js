@@ -98,7 +98,7 @@ app.listen(4007, async () => {
     console.log('Listening on port 4007')
 
     try {
-        const res = await axios.get("http://localhost:4005/events").catch((err) => {
+        const res = await axios.get("http://event-bus-srv:4005/events").catch((err) => {
             console.log(`Error in ${err.message} Query`);
           });;
      

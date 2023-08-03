@@ -39,8 +39,9 @@ app.post('/movies', async (req, res) => {
         id, 
         title
     }
+    console.log("here1")
     //Sending the event to event bus when post request is created
-    await axios.post("http://localhost:4005/events", {
+    await axios.post("http://event-bus-srv:4005/events", {
     type: "MovieCreated",
     data: {
       id,
@@ -63,5 +64,5 @@ app.post("/events", (req, res) => {
 
 // sets up the server to listen on port 4000 for incoming HTTP requests.
 app.listen(4002, () => {
-    console.log('Listening on port 4002')
+    console.log('Listening on port 4002!')
 })
